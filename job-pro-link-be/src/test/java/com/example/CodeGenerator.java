@@ -8,19 +8,19 @@ import java.util.Collections;
 
 public class CodeGenerator {
     public static void main(String[] args) {
-        String url = "jdbc:mysql:///admin_db";
+        String url = "jdbc:mysql:///jpl_app";
         String username = "root";
         String password = "123456";
         String author = "soso";
         String moduleName = "sys";
-        String mapperLocation = "C:\\Users\\86153\\Desktop\\job-pro-link\\job-pro-link-be\\src\\main\\resources\\mapper\\" + moduleName;
+        String mapperLocation = "D:\\mygit\\job-pro-link\\job-pro-link-be\\src\\main\\resources\\mapper\\" + moduleName;
         String tables = "m_companies,m_kbn_catagories,m_kbn_values,m_users,t_application,t_application_results,t_jobs";
         FastAutoGenerator.create(url, username, password)
                 .globalConfig(builder -> {
                     builder.author(author) // 设置作者
                             //.enableSwagger() // 开启 swagger 模式
                             //.fileOverride() // 覆盖已生成文件
-                            .outputDir("C:\\Users\\86153\\Desktop\\job-pro-link\\job-pro-link-be\\src\\main\\java"); // 指定输出目录
+                            .outputDir("D:\\mygit\\job-pro-link\\job-pro-link-be\\src\\main\\java"); // 指定输出目录
                 })
                 .packageConfig(builder -> {
                     builder.parent("com.example") // 设置父包名

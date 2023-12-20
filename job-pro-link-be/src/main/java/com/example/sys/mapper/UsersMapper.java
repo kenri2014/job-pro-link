@@ -12,5 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2023-11-09
  */
 public interface UsersMapper extends BaseMapper<Users> {
+  String getUserName(String userName);
+  String getPassword(String password);
 
 }

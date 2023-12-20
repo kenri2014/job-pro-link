@@ -3,47 +3,34 @@ package com.example.common;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/**
+ * @description  返された結果の統一処理
+ * @author ziqi
+ * @since 2023-12-13
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Result<T> {
-    private Integer code;
+    private String code;
     private String message;
     private T data;
 
     public static <T> Result<T> success(){
-        return new Result<>(20000,"success",null);
+        return new Result<>(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMessage(),null);
     }
 
     public static <T> Result<T> success(T data){
-        return new Result<>(20000,"success",data);
+        return new Result<>(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMessage(),data);
     }
 
-    public static <T> Result<T> success(T data,String message){
-        return new Result<>(20000,message,data);
+    public static <T> Result<T> result(T data,StatusCode statusCode){
+        return new Result<>(statusCode.getCode(),statusCode.getMessage(),data);
     }
 
-    public static <T> Result<T> success(String message){
-        return new Result<>(20000,message,null);
+    public static <T> Result<T> result(StatusCode statusCode){
+        return new Result<>(statusCode.getCode(),statusCode.getMessage(),null);
     }
-
-    public static<T>  Result<T> fail(){
-        return new Result<>(20001,"fail",null);
-    }
-
-    public static<T>  Result<T> fail(Integer code){
-        return new Result<>(code,"fail",null);
-    }
-
-    public static<T>  Result<T> fail(Integer code, String message){
-        return new Result<>(code,message,null);
-    }
-
-    public static<T>  Result<T> fail( String message){
-        return new Result<>(20001,message,null);
-    }
-
 }
 
 

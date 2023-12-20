@@ -1,45 +1,37 @@
-package com.example.sys.entity;
+package com.example.sys.vo;
 
-
+import com.alibaba.fastjson2.JSONArray;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.example.validation.PastLocalDate;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author soso
- * @since 2023-11-09
- */
-@TableName("m_users")
-public class Users implements Serializable {
-
+public class UsersAddReq {
     private static final long serialVersionUID = 1L;
     @TableId(value="user_id",type= IdType.AUTO)
     private Integer userId;
-
     private String icon;
     @NotEmpty(message = "ユーザー名は必ず入力する")
     private String userName;
     @NotEmpty(message = "パスワードは必ず入力する")
     @Length(min = 6,message = "パスワードは少なくとも6文字以上で設定する")
     private String password;
-
+    @NotEmpty(message = "メールアドレスは必ず入力する")
+    @Email(message = "メールのフォーマットが正しくない")
     private String email;
-
+    @NotNull(message = "生年月日は必ず選ぶ")
+    @PastLocalDate
     private LocalDate birthday;
-
+    @NotNull(message = "性別は必ず選ぶ")
     private Integer genderKbn;
-
+    @NotEmpty(message = "電話番号は必ず入力する")
+    @Pattern(regexp = "^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\\d{8}$",message = "手机号码格式不正确")
     private String mobilePhone;
+    @NotEmpty(message = "国籍は必ず選ぶ")
     private String countryKbn;
 
     private String address;
@@ -56,35 +48,31 @@ public class Users implements Serializable {
 
     private String description;
 
-    private String courses;
+    private JSONArray courses;
 
-    private String projectHistories;
+    private JSONArray projectHistories;
 
-    private String workHistories;
+    private JSONArray workHistories;
 
-    private String languages;
+    private JSONArray languages;
 
-    private String skills;
+    private JSONArray skills;
 
     private String createdBy;
 
     private LocalDateTime createdAt;
 
-    private String updatedBy;
+    public UsersAddReq() {
+    }
 
-    private LocalDateTime updatedAt;
-
-    private Integer lockNo;
-
-    private String delFlg;
-
-    public Integer getUserId() {
+    public Integer UserId() {
         return userId;
     }
 
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
     public String getIcon() {
         return icon;
     }
@@ -92,6 +80,7 @@ public class Users implements Serializable {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
     public String getUserName() {
         return userName;
     }
@@ -99,6 +88,7 @@ public class Users implements Serializable {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
     public String getPassword() {
         return password;
     }
@@ -106,6 +96,7 @@ public class Users implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public String getEmail() {
         return email;
     }
@@ -113,6 +104,7 @@ public class Users implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
     public LocalDate getBirthday() {
         return birthday;
     }
@@ -120,6 +112,7 @@ public class Users implements Serializable {
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
+
     public Integer getGenderKbn() {
         return genderKbn;
     }
@@ -127,6 +120,7 @@ public class Users implements Serializable {
     public void setGenderKbn(Integer genderKbn) {
         this.genderKbn = genderKbn;
     }
+
     public String getMobilePhone() {
         return mobilePhone;
     }
@@ -134,6 +128,7 @@ public class Users implements Serializable {
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
     }
+
     public String getCountryKbn() {
         return countryKbn;
     }
@@ -141,6 +136,7 @@ public class Users implements Serializable {
     public void setCountryKbn(String countryKbn) {
         this.countryKbn = countryKbn;
     }
+
     public String getAddress() {
         return address;
     }
@@ -148,6 +144,7 @@ public class Users implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
+
     public String getEducationKbn() {
         return educationKbn;
     }
@@ -155,6 +152,7 @@ public class Users implements Serializable {
     public void setEducationKbn(String educationKbn) {
         this.educationKbn = educationKbn;
     }
+
     public String getSpecialty() {
         return specialty;
     }
@@ -162,6 +160,7 @@ public class Users implements Serializable {
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
     }
+
     public String getSchool() {
         return school;
     }
@@ -169,6 +168,7 @@ public class Users implements Serializable {
     public void setSchool(String school) {
         this.school = school;
     }
+
     public LocalDate getAdmissionDate() {
         return admissionDate;
     }
@@ -176,6 +176,7 @@ public class Users implements Serializable {
     public void setAdmissionDate(LocalDate admissionDate) {
         this.admissionDate = admissionDate;
     }
+
     public LocalDate getGraduationDate() {
         return graduationDate;
     }
@@ -183,6 +184,7 @@ public class Users implements Serializable {
     public void setGraduationDate(LocalDate graduationDate) {
         this.graduationDate = graduationDate;
     }
+
     public String getDescription() {
         return description;
     }
@@ -190,41 +192,47 @@ public class Users implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getCourses() {
+
+    public JSONArray getCourses() {
         return courses;
     }
 
-    public void setCourses(String courses) {
+    public void setCourses(JSONArray courses) {
         this.courses = courses;
     }
-    public String getProjectHistories() {
+
+    public JSONArray getProjectHistories() {
         return projectHistories;
     }
 
-    public void setProjectHistories(String projectHistories) {
+    public void setProjectHistories(JSONArray projectHistories) {
         this.projectHistories = projectHistories;
     }
-    public String getWorkHistories() {
+
+    public JSONArray getWorkHistories() {
         return workHistories;
     }
 
-    public void setWorkHistories(String workHistories) {
+    public void setWorkHistories(JSONArray workHistories) {
         this.workHistories = workHistories;
     }
-    public String getLanguages() {
+
+    public JSONArray getLanguages() {
         return languages;
     }
 
-    public void setLanguages(String languages) {
+    public void setLanguages(JSONArray languages) {
         this.languages = languages;
     }
-    public String getSkills() {
+
+    public JSONArray getSkills() {
         return skills;
     }
 
-    public void setSkills(String skills) {
+    public void setSkills(JSONArray skills) {
         this.skills = skills;
     }
+
     public String getCreatedBy() {
         return createdBy;
     }
@@ -232,6 +240,7 @@ public class Users implements Serializable {
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -239,6 +248,7 @@ public class Users implements Serializable {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
     public String getUpdatedBy() {
         return updatedBy;
     }
@@ -246,13 +256,15 @@ public class Users implements Serializable {
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
     }
-    public LocalDateTime getUpdatedAt() {
+
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
+
     public Integer getLockNo() {
         return lockNo;
     }
@@ -260,6 +272,7 @@ public class Users implements Serializable {
     public void setLockNo(Integer lockNo) {
         this.lockNo = lockNo;
     }
+
     public String getDelFlg() {
         return delFlg;
     }
@@ -268,36 +281,12 @@ public class Users implements Serializable {
         this.delFlg = delFlg;
     }
 
-    @Override
-    public String toString() {
-        return "Users{" +
-            "userId=" + userId+
-            ", icon=" + icon +
-            ", userName=" + userName +
-            ", password=" + password +
-            ", email=" + email +
-            ", birthday=" + birthday +
-            ", genderKbn=" + genderKbn +
-            ", mobilePhone=" + mobilePhone +
-            ", countryKbn=" + countryKbn +
-            ", address=" + address +
-            ", educationKbn=" + educationKbn +
-            ", specialty=" + specialty +
-            ", school=" + school +
-            ", admissionDate=" + admissionDate +
-            ", graduationDate=" + graduationDate +
-            ", description=" + description +
-            ", courses=" + courses +
-            ", projectHistories=" + projectHistories +
-            ", workHistories=" + workHistories +
-            ", languages=" + languages +
-            ", skills=" + skills +
-            ", createdBy=" + createdBy +
-            ", createdAt=" + createdAt +
-            ", updatedBy=" + updatedBy +
-            ", updatedAt=" + updatedAt +
-            ", lockNo=" + lockNo +
-            ", delFlg=" + delFlg +
-        "}";
-    }
+    private String updatedBy;
+
+    private LocalDate updatedAt;
+
+    private Integer lockNo;
+
+    private String delFlg;
+
 }
